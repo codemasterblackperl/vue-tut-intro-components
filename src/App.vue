@@ -1,44 +1,51 @@
 <template>
   <div class="container">
+    <appQuoteCounter :quotesCounter="quotesCounter"></appQuoteCounter>
+    <br>
+    <br>
+    <app-new-quote @quoteAdded="addNewQuote"></app-new-quote>
+    <br>
+    <br>
+    <app-quote-grid :quotes="quotes"
+                    @quoteDeleted="quoteDeleted"></app-quote-grid>
     <div class="row">
-      <div class="col-xs-12">
-        <br>
-        <br>
-        <button @click="selectedComponent='appAuthor'">Author</button>
-        <button @click="selectedComponent='appQuote'">Quote</button>
-        <button @click="selectedComponent='appNew'">New</button>
-        <hr>
-        <component :is="selectedComponent"></component>
-        <br>
-        <br>
-        <keep-alive>
-          <component :is="selectedComponent"></component>
-        </keep-alive>
-        <!-- <app-quote>
-          <p slot="title">{{quoteTitle}}</p>
-          <p slot="content">A wonderful quote!</p>
-        </app-quote> -->
+      <div class="col-sm-12 text-center">
+        <div class="alert alert-info">Info: Click on quote to delete it</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Quote from "./advance-com-usage/Quote";
-import Author from "./advance-com-usage/Author";
-import New from "./advance-com-usage/New";
+import QuoteCounter from "./second-project/QuotesCounter";
+import QuoteGrid from "./second-project/QuoteGrid";
+import NewQuote from "./second-project/NewQuote";
 
 export default {
   data: function() {
     return {
-      quoteTitle: "Today's quote",
-      selectedComponent: "appQuote"
+      quotesCounter: 0,
+      quotes: []
     };
   },
+  methods: {
+    addNewQuote(quote) {
+      if (this.quotesCounter == 10) {
+        alert("Quotes are full\r\nRemove some quotes before adding new quote");
+        return;
+      }
+      this.quotes.push(quote);
+      this.quotesCounter++;
+    },
+    quoteDeleted(index) {
+      this.quotes.splice(index, 1);
+      this.quotesCounter--;
+    }
+  },
   components: {
-    appQuote: Quote,
-    appAuthor: Author,
-    appNew: New
+    appQuoteCounter: QuoteCounter,
+    appQuoteGrid: QuoteGrid,
+    appNewQuote: NewQuote
   }
 };
 </script>
