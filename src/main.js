@@ -1,9 +1,9 @@
 import Vue from "vue";
-import App from "./filters-mixins/App.vue";
+import App from "./animation-project/App.vue";
 
-Vue.filter("to-lower", (value) => {
-  return value.toLowerCase();
-});
+// Vue.filter("to-lower", (value) => {
+//   return value.toLowerCase();
+// });
 // Vue.directive("highlight", {
 //   bind(el, binding, vnode) {
 //     //el.style.backgroundColor="green";
