@@ -1,6 +1,29 @@
 import Vue from "vue";
-import App from "./animation-project/App.vue";
+import VueResource from "vue-resource";
+import App from "./http-vue-resource/App.vue";
 
+Vue.use(VueResource);
+
+Vue.http.options.root = "https://vuejs-http-d5903.firebaseio.com/";
+Vue.http.interceptors.push((request, next) => {
+  console.log(request);
+  if (request.method == "POST") {
+    request.method = "PUT";
+  }
+  //carefull with adding response interceptors
+  next(response => {
+    response.json = () => {
+      return {
+        user: response.body
+      };
+    };
+  });
+});
+
+new Vue({
+  el: "#app",
+  render: h => h(App)
+});
 // Vue.filter("to-lower", (value) => {
 //   return value.toLowerCase();
 // });
@@ -26,8 +49,3 @@ import App from "./animation-project/App.vue";
 //     }, delay);
 //   }
 // });
-
-new Vue({
-  el: "#app",
-  render: h => h(App)
-});
