@@ -1,0 +1,1 @@
+export const GET_VALUE = "value/getValue";

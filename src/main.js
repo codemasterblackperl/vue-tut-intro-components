@@ -1,34 +1,37 @@
 import Vue from "vue";
 // import VueResource from "vue-resource";
-import VueRouter from "vue-router";
-import App from "./Routing/App.vue";
+//import VueRouter from "vue-router";
+import App from "./state-management/App.vue";
+// import {
+//   routes
+// } from "./route";
 import {
-  routes
-} from "./route";
+  store
+} from "./state-management/store/store";
 
-Vue.use(VueRouter);
-const router = new VueRouter({
-  routes,
-  //mode: "history",
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
-    if (to.hash) {
-      return {
-        selector: to.hash
-      };
-    }
-    return {
-      x: 0,
-      y: 400
-    };
-  }
-});
-router.beforeEach((to, from, next) => {
-  console.log("global beforeEach");
-  next();
-});
+// Vue.use(VueRouter);
+// const router = new VueRouter({
+//   routes,
+//   //mode: "history",
+//   scrollBehavior(to, from, savedPosition) {
+//     if (savedPosition) {
+//       return savedPosition;
+//     }
+//     if (to.hash) {
+//       return {
+//         selector: to.hash
+//       };
+//     }
+//     return {
+//       x: 0,
+//       y: 400
+//     };
+//   }
+// });
+// router.beforeEach((to, from, next) => {
+//   console.log("global beforeEach");
+//   next();
+// });
 // Vue.use(VueResource);
 
 // Vue.http.options.root = "https://vuejs-http-d5903.firebaseio.com/";
@@ -49,7 +52,8 @@ router.beforeEach((to, from, next) => {
 
 new Vue({
   el: "#app",
-  router,
+  //router,
+  store,
   render: h => h(App)
 });
 // Vue.filter("to-lower", (value) => {
